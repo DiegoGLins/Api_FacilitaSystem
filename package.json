@@ -22,6 +22,9 @@
     "express-session": "^1.18.0",
     "jsonwebtoken": "^9.0.2"
   },
+  "engines": {
+    "node": ">=18.18.0 <20.12.1"
+  },
   "name": "api_facilitasystem",
   "version": "1.0.0",
   "main": "index.js",
