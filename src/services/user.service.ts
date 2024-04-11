@@ -2,7 +2,7 @@ import { ResponseDto } from "../dto/response.dto";
 import { UserDto } from "../dto/user.dto";
 import prisma from '../database/prisma.database'
 import bcrypt from 'bcrypt'
-import { User as UserPrisma } from '@prisma/client'
+import { User as UserPrisma } from "@prisma/client"
 import { User } from "../model/user.model";
 
 class UserService {
