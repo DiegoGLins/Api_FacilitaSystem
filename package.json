@@ -28,6 +28,7 @@
   "scripts": {
     "start": "node dist/index.js",
     "build": "tsc",
+    "vercel-build": "npx prisma migration deploy",
     "dev": "ts-node-dev --respawn --transpile-only ./src/index.ts"
   },
   "keywords": [],
