@@ -47,6 +47,18 @@ class UserService {
         )
         return model
     }
+
+    public async showUsers() {
+        const data = await prisma.user.findMany()
+        const showUserModel = data.map((item) => this.mapToModel(item))
+
+        return {
+            ok: true,
+            code: 200,
+            message: "Usuarios listados com sucesso",
+            data: showUserModel.map((item) => item.detailUser())
+        }
+    }
 }
 
 export default new UserService()

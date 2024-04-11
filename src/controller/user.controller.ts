@@ -19,4 +19,17 @@ export class UserController {
             })
         }
     }
+
+    public async show(req: Request, res: Response) {
+        try {
+            const result = await userService.showUsers()
+            return res.status(result.code).send(result)
+        } catch (error: any) {
+            return {
+                ok: false,
+                code: 500,
+                message: error.toString()
+            }
+        }
+    }
 }

@@ -6,6 +6,7 @@ export const userRoutes = () => {
     const router = Router()
     const controller = new UserController()
     router.post('/create', registerMiddleware, controller.create)
+    router.get('/', controller.show)
 
     return router
 }
