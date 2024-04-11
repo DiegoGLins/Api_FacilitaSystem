@@ -1,0 +1,8 @@
+POST http://localhost:3333/tasks HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcwZDIyYmNhLTliOTUtNDdjZi05NTFmLTkzNjlkM2Y2NzdkZCIsIm5hbWUiOiJwZWRybyBzb3V6YSIsImVtYWlsIjoicGVkcmluaG9AZ21haWwuY29tIiwiaWF0IjoxNzEyNzc2Mzk4fQ.bQMGzcq9l43Y4UfT502l2FjZjIinMc5emWsfoJyi5Xc
+
+{
+    "name":"minha primeira tarefa",
+    "description":"detalhes da minha primeira tarefa"
+}

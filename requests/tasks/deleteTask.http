@@ -1,0 +1,3 @@
+DELETE  http://localhost:3333/tasks/58eef0f7-9162-42a9-899b-81630dcf0832 HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjlkMmM4MjMzLTI0NTQtNDVmNC1iMTU0LWVhZDIwNWVkOGU2ZSIsImVtYWlsIjoicGVkcmluaG9AZ21haWwuY29tIiwiaWF0IjoxNzEyNzE1NjQ0fQ.YLAhbnLuFe8OyUu8hBMQgSiCfbNCpVBJHYFlm0Tbw3U
