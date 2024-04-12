@@ -4,7 +4,6 @@ import * as dotenv from 'dotenv'
 import { userRoutes } from './routes/user.routes'
 import { authRoutes } from './routes/auth.routes'
 import { taskRoutes } from './routes/task.routes'
-import prisma from './database/prisma.database'
 
 dotenv.config()
 const port = process.env.PORT || 3333
@@ -16,10 +15,12 @@ app.use('/users', userRoutes())
 app.use('/auth', authRoutes())
 app.use('/tasks', taskRoutes())
 
-app.get("/", async (req: Request, res: Response) => {
-    const users = await prisma.user.findMany()
-
-    return res.json(users)
+app.get("/", (req: Request, res: Response) => {
+    const response = {
+        code: 200,
+        message: "API is Running",
+    }
+    return res.status(response.code).send(response)
 })
 
 app.listen(port, () => {
