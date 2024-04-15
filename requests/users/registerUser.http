@@ -1,4 +1,4 @@
-POST http://localhost:3333/users HTTP/1.1
+POST http://localhost:8080/users HTTP/1.1
 content-type: application/json
 
 # {
@@ -7,11 +7,11 @@ content-type: application/json
 #     "password":"12345"
 # }
 
-# {
-#     "name":"Amanda Pereira",
-#     "email": "amanda@gmail.com",
-#     "password":"12345"
-# }
+{
+    "name":"Eudes",
+    "email": "eudes@gmail.com",
+    "password":"12345"
+}
 
 # {
 #     "name":"Paula Andrade",

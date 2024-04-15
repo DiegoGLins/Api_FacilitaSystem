@@ -1,9 +1,9 @@
-POST http://localhost:3333/auth HTTP/1.1
+POST http://localhost:8080/auth HTTP/1.1
 content-type: application/json
 
 {
     "email": "pedrinho@gmail.com",
     "password": "12345"
 }
-//id: 70d22bca-9b95-47cf-951f-9369d3f677dd
-//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcwZDIyYmNhLTliOTUtNDdjZi05NTFmLTkzNjlkM2Y2NzdkZCIsIm5hbWUiOiJwZWRybyBzb3V6YSIsImVtYWlsIjoicGVkcmluaG9AZ21haWwuY29tIiwiaWF0IjoxNzEyNzc2Mzk4fQ.bQMGzcq9l43Y4UfT502l2FjZjIinMc5emWsfoJyi5Xc
+//1e1b2b2a-a7cd-49b3-b434-b5c0f894bc33
+//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjFlMWIyYjJhLWE3Y2QtNDliMy1iNDM0LWI1YzBmODk0YmMzMyIsIm5hbWUiOiJwZWRybyBzb3V6YSIsImVtYWlsIjoicGVkcmluaG9AZ21haWwuY29tIiwiaWF0IjoxNzEzMTk0OTQyfQ.G9k2q8uOn3GRILPc-8ZO1b5LqLfua9-hD8uB2oMZtJ8

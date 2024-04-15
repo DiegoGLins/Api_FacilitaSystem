@@ -1,8 +1,8 @@
-POST http://localhost:3333/tasks HTTP/1.1
+POST http://localhost:8080/tasks HTTP/1.1
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcwZDIyYmNhLTliOTUtNDdjZi05NTFmLTkzNjlkM2Y2NzdkZCIsIm5hbWUiOiJwZWRybyBzb3V6YSIsImVtYWlsIjoicGVkcmluaG9AZ21haWwuY29tIiwiaWF0IjoxNzEyNzc2Mzk4fQ.bQMGzcq9l43Y4UfT502l2FjZjIinMc5emWsfoJyi5Xc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjFlMWIyYjJhLWE3Y2QtNDliMy1iNDM0LWI1YzBmODk0YmMzMyIsIm5hbWUiOiJwZWRybyBzb3V6YSIsImVtYWlsIjoicGVkcmluaG9AZ21haWwuY29tIiwiaWF0IjoxNzEzMTk0OTQyfQ.G9k2q8uOn3GRILPc-8ZO1b5LqLfua9-hD8uB2oMZtJ8
 
 {
-    "name":"minha primeira tarefa",
-    "description":"detalhes da minha primeira tarefa"
+    "name":"outro teste de tarefa",
+    "description":"detalhes do teste"
 }
