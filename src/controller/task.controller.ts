@@ -41,7 +41,7 @@ class TaskController {
     }
 
     public async index(req: Request, res: Response) {
-        const { id } = req.authUser
+        const { id } = req.params
         try {
             const result = await taskService.index(id)
 
