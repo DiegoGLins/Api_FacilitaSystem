@@ -3,7 +3,7 @@ import taskService from "../services/task.service";
 
 class TaskController {
     public async createTask(req: Request, res: Response) {
-        const { id } = req.authUser
+        // const { id } = req.authUser
         const { name, description } = req.body
 
         if (!name || !description) {
@@ -18,7 +18,7 @@ class TaskController {
             const result = await taskService.create({
                 name,
                 description,
-                id
+                // id
             })
             if (result.ok) {
                 res.status(201).send(result)
