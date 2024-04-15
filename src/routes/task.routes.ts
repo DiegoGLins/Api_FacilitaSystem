@@ -5,7 +5,7 @@ import authMiddleware from "../middlewares/auth.middleware"
 export const taskRoutes = () => {
     const router = Router()
     const controller = new TaskController()
-    router.post('/', authMiddleware, controller.createTask)
+    router.post('/', controller.createTask)
     router.get('/', authMiddleware, controller.index)
     router.put('/:taskId', authMiddleware, controller.update)
     router.delete('/:taskId', authMiddleware, controller.delete)
