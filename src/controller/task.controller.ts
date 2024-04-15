@@ -6,6 +6,14 @@ class TaskController {
         const { id } = req.authUser
         const { name, description } = req.body
 
+        if (!name || !description) {
+            return res.status(400).send({
+                ok: false,
+                code: 400,
+                message: "Preencha todos os campos"
+            })
+        }
+
         try {
             const result = await taskService.create({
                 name,
