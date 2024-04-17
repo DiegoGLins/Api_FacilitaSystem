@@ -1,28 +1,13 @@
-import express, { Request, Response } from 'express'
-import cors from 'cors'
 import * as dotenv from 'dotenv'
-import { userRoutes } from './routes/user.routes'
-import { authRoutes } from './routes/auth.routes'
-import { taskRoutes } from './routes/task.routes'
+import { createServer } from './express.server'
+import swaggerUi from "swagger-ui-express"
+import swaggerDoc from "./docs/swagger.json"
 
 dotenv.config()
 const port = process.env.PORT || 3333
-const app = express()
-app.use(express.json())
-app.use(cors())
+const app = createServer()
 
-app.use('/users', userRoutes())
-app.use('/auth', authRoutes())
-app.use('/tasks', taskRoutes())
-
-app.get("/", (req: Request, res: Response) => {
-    const response = {
-        code: 200,
-        message: "API is Running",
-    }
-    return res.status(response.code).send(response)
-})
-
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc))
 app.listen(port, () => {
     console.log(`Api rodando na porta ${port}`)
 })

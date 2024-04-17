@@ -18,7 +18,7 @@ class TaskController {
             const result = await taskService.create({
                 name,
                 description,
-                userId: id
+                userId: id,
             })
             if (result.ok) {
                 res.status(201).send(result)
