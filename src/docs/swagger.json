@@ -1,0 +1,359 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "API-Facilita-System",
+    "description": "A api facilita-system é um gerenciador de tarefas, usada para criar, editar e excluir tarefas, facilitando uma agenda diária de ativvidades do usuário",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080"
+    }
+  ],
+  "tags": [
+    {
+      "name": "usuários",
+      "description": "Rota pra cadastro e listagem de usuários"
+    },
+    {
+      "name": "tasks",
+      "description": "Rotas para criar, listar, editar e excluir tarefas"
+    }
+  ],
+  "paths": {
+    "/auth": {
+      "description": "Rota para realizar autenticação",
+      "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["auth"],
+        "summary": "Loga o usuário no sistema",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "response": {
+          "200": {
+            "description": "Login realizado com sucesso",
+            "content": {
+              "allOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "userLogin": {
+                      "$ref": "#/components/schemas/userLogin"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "404": {
+            "description": "Usuário não encontrado"
+          },
+          "401": { "desciption": "Email ou senha incorretos" }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "tags": ["usuarios"],
+        "summary": "Lista todos os usuários cadastrados na aplicação",
+        "responses": {
+          "200": {
+            "description": "Usuários listados com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/users"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["usuarios"],
+        "summary": "Cadastra um usuário na aplicação passando nome, email e senha ",
+        "description": "Rota para cadastro de usuario",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "email": { "type": "string" },
+                  "password": { "type": "string" }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Usuário cadastrado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/createUser"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Email já cadastrado"
+          }
+        }
+      }
+    },
+    "/tasks": {
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["tasks"],
+        "summary": "Lista as tarefas do usuário logado",
+        "description": "Isso só pode ser feito por um usuário logado",
+        "responses": {
+          "200": {
+            "description": "Tarefas listadas com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/tasks"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Usuário não encontrado"
+          },
+          "500": {
+            "desciption": "Erro interno no servidor"
+          },
+          "401": {
+            "desciption": "Autenticação do token falhou"
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["tasks"],
+        "summary": "Cria uma tarefa para o usuario logado passando nome e descrição da tarefa",
+        "description": "Isso só pode ser feito por um usuário logado",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "description": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Tarefa criada com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "$ref": "#/components/schemas/tasks"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Preencha todos os campos"
+          },
+          "500": {
+            "desciption": "Erro ao criar tarefa"
+          }
+        }
+      }
+    },
+    "/tasks/{taskId}": {
+      "put": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["tasks"],
+        "summary": "Edita uma tarefa",
+        "desciption": "Isso só pode ser feito por um usuário logado. Edita o conteúdo da tarefa",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "O id da tarefa a ser editada, deve ser passado",
+            "require": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "description": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Tarefa editada com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/task-update"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Tarefa para editar não encontrada"
+          },
+          "401": {
+            "desciption": "Autenticação do token falhou"
+          },
+          "500": {
+            "desciption": "Erro interno do servidor"
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["tasks"],
+        "summary": "Exclui uma tarefa",
+        "description": "Isso só pode ser feito por um usuário logado. Exclui uma tarefa passando o id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "O id da tarefa a ser excluida, deve ser passado",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tarefa excluida com sucesso"
+          },
+          "404": {
+            "description": "Tarefa para excluir não encontrada"
+          },
+          "500": {
+            "description": "Erro interno do servidor"
+          },
+          "401": {
+            "description": "Autenticação do token falhou"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "userLogin": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "email": { "type": "string" }
+        }
+      },
+      "token": { "type": "string" },
+      "createUser": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "email": { "type": "string" }
+        }
+      },
+      "users": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "email": { "type": "string" }
+        }
+      },
+      "tasks": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "createdAt": { "type": "Date" },
+          "userId": { "type": "string" }
+        }
+      },
+      "task-update": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "createdAt": { "type": "Date" },
+          "userId": { "type": "string" }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "security": {
+    "bearerAuth": []
+  }
+}
