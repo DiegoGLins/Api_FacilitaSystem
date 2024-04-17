@@ -1,6 +1,5 @@
 export interface TaskDto {
     id: string
-    code: number;
     name: string;
     description: string;
     userId: string;
@@ -9,4 +8,4 @@ export interface TaskDto {
 
 export type TaskUpdateDto = Partial<TaskDto> & { taskId: string }
 
-export type TaskCreateDto = Omit<TaskDto, 'code' | 'createdAt' | 'id'>
+export type TaskCreateDto = Omit<TaskDto, 'id' | 'createdAt'>
