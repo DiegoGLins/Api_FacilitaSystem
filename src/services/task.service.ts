@@ -1,14 +1,14 @@
 import prisma from "../database/prisma.database";
 import { ResponseDto } from "../dto/response.dto";
-import { TaskDto, TaskUpdateDto } from "../dto/task.dto";
+import { TaskCreateDto, TaskUpdateDto } from "../dto/task.dto";
 
 class TaskService {
-    public async create(data: TaskDto): Promise<ResponseDto> {
+    public async create(data: TaskCreateDto): Promise<ResponseDto> {
         const newTask = await prisma.task.create({
             data: {
-                name: data?.name!,
-                description: data?.description!,
-                userId: data?.id!
+                name: data.name,
+                description: data.description,
+                userId: data.userId
             }
         })
         return {

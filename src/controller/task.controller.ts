@@ -18,7 +18,7 @@ class TaskController {
             const result = await taskService.create({
                 name,
                 description,
-                id
+                userId: id
             })
             if (result.ok) {
                 res.status(201).send(result)
@@ -41,10 +41,9 @@ class TaskController {
     }
 
     public async index(req: Request, res: Response) {
-        const { id } = req.params
         try {
+            const { id } = req.authUser
             const result = await taskService.index(id)
-
             return res.status(result.code).send(result)
         } catch (error: any) {
             res.status(500).send({
