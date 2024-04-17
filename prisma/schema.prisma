@@ -19,7 +19,6 @@ model User {
 
 model Task {
   id          String @id @default(uuid()) @map("task_id") @db.Uuid @unique
-  code        Int @db.Integer @default(autoincrement())
   name        String
   description String
   createdAt   DateTime @default(now())
