@@ -21,7 +21,7 @@ model Task {
   id          String @id @default(uuid()) @map("task_id") @db.Uuid @unique
   name        String
   description String
-  createdAt   DateTime @default(now())
+  createdAt   DateTime @db.Date @default(now())
   userId      String @map("user_id") @db.Uuid
   user        User   @relation(fields: [userId], references: [id])
 
