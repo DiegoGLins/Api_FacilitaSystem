@@ -2,8 +2,8 @@ export interface TaskDto {
     id: string
     name: string;
     description: string;
-    userId: string;
     createdAt: Date;
+    userId: string;
 }
 
 export type TaskUpdateDto = Partial<TaskDto> & { taskId: string }
