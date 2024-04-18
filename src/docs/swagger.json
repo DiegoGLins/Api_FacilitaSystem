@@ -12,7 +12,7 @@
   ],
   "tags": [
     {
-      "name": "usuários",
+      "name": "usuarios",
       "description": "Rota pra cadastro e listagem de usuários"
     },
     {
@@ -24,11 +24,6 @@
     "/auth": {
       "description": "Rota para realizar autenticação",
       "post": {
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
         "tags": ["auth"],
         "summary": "Loga o usuário no sistema",
         "requestBody": {
@@ -48,30 +43,34 @@
             }
           }
         },
-        "response": {
+        "responses": {
           "200": {
             "description": "Login realizado com sucesso",
             "content": {
-              "allOf": [
-                {
-                  "type": "object",
-                  "properties": {
-                    "userLogin": {
-                      "$ref": "#/components/schemas/userLogin"
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "userLogin": {
+                          "$ref": "#/components/schemas/userLogin"
+                        }
+                      }
                     }
-                  }
+                  ]
                 }
-              ]
+              }
             }
           },
           "404": {
             "description": "Usuário não encontrado"
           },
-          "401": { "desciption": "Email ou senha incorretos" }
+          "401": { "description": "Email ou senha incorretos" }
         }
       }
     },
-    "/users": {
+    "/users/show": {
       "get": {
         "tags": ["usuarios"],
         "summary": "Lista todos os usuários cadastrados na aplicação",
@@ -81,16 +80,19 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/users"
-                  }
+                  "type": "object",
+                  "$ref": "#/components/schemas/users"
                 }
               }
             }
+          },
+          "500": {
+            "description": "Erro interno do servidor"
           }
         }
-      },
+      }
+    },
+    "/users": {
       "post": {
         "tags": ["usuarios"],
         "summary": "Cadastra um usuário na aplicação passando nome, email e senha ",
@@ -116,16 +118,23 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/createUser"
-                  }
+                  "$ref": "#/components/schemas/createUser"
                 }
               }
             }
           },
           "400": {
-            "description": "Email já cadastrado"
+            "description": "Email já cadastrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/createUser-reject"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno do servidor"
           }
         }
       }
@@ -146,10 +155,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/tasks"
-                  }
+                  "$ref": "#/components/schemas/tasks"
                 }
               }
             }
@@ -158,10 +164,10 @@
             "description": "Usuário não encontrado"
           },
           "500": {
-            "desciption": "Erro interno no servidor"
+            "description": "Erro interno no servidor"
           },
           "401": {
-            "desciption": "Autenticação do token falhou"
+            "description": "Autenticação do token falhou"
           }
         }
       },
@@ -193,10 +199,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "items": {
-                    "$ref": "#/components/schemas/tasks"
-                  }
+                  "$ref": "#/components/schemas/task-create"
                 }
               }
             }
@@ -205,7 +208,7 @@
             "description": "Preencha todos os campos"
           },
           "500": {
-            "desciption": "Erro ao criar tarefa"
+            "description": "Erro ao criar tarefa"
           }
         }
       }
@@ -219,10 +222,10 @@
         ],
         "tags": ["tasks"],
         "summary": "Edita uma tarefa",
-        "desciption": "Isso só pode ser feito por um usuário logado. Edita o conteúdo da tarefa",
+        "description": "Isso só pode ser feito por um usuário logado. Edita o conteúdo da tarefa",
         "parameters": [
           {
-            "name": "id",
+            "name": "taskId",
             "in": "path",
             "description": "O id da tarefa a ser editada, deve ser passado",
             "require": true
@@ -256,10 +259,10 @@
             "description": "Tarefa para editar não encontrada"
           },
           "401": {
-            "desciption": "Autenticação do token falhou"
+            "description": "Autenticação do token falhou"
           },
           "500": {
-            "desciption": "Erro interno do servidor"
+            "description": "Erro interno do servidor"
           }
         }
       },
@@ -274,7 +277,7 @@
         "description": "Isso só pode ser feito por um usuário logado. Exclui uma tarefa passando o id",
         "parameters": [
           {
-            "name": "id",
+            "name": "taskId",
             "in": "path",
             "description": "O id da tarefa a ser excluida, deve ser passado",
             "required": true
@@ -282,7 +285,13 @@
         ],
         "responses": {
           "200": {
-            "description": "Tarefa excluida com sucesso"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#components/schemas/task-delete"
+                }
+              }
+            }
           },
           "404": {
             "description": "Tarefa para excluir não encontrada"
@@ -302,46 +311,144 @@
       "userLogin": {
         "type": "object",
         "properties": {
-          "id": { "type": "string" },
-          "name": { "type": "string" },
-          "email": { "type": "string" }
+          "ok": { "type": "boolean", "example": true },
+          "code": { "type": "number", "example": 200 },
+          "message": {
+            "type": "string",
+            "example": "Login realizado com sucesso"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "name": { "type": "string" },
+              "email": { "type": "string" }
+            }
+          },
+          "token": { "type": "string" }
         }
       },
-      "token": { "type": "string" },
       "createUser": {
         "type": "object",
         "properties": {
-          "id": { "type": "string" },
-          "name": { "type": "string" },
-          "email": { "type": "string" }
+          "ok": { "type": "boolean" },
+          "code": { "type": "number", "example": 201 },
+          "message": {
+            "type": "string",
+            "example": "Cadastro realizado com sucesso"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "name": { "type": "string" },
+              "email": { "type": "string" }
+            }
+          }
+        }
+      },
+      "createUser-reject": {
+        "type": "object",
+        "properties": {
+          "ok": { "type": "boolean" },
+          "code": { "type": "number", "example": 400 },
+          "message": { "type": "string", "example": "Email já cadastrado" }
         }
       },
       "users": {
         "type": "object",
         "properties": {
-          "id": { "type": "string" },
-          "name": { "type": "string" },
-          "email": { "type": "string" }
+          "ok": { "type": "boolean" },
+          "code": { "type": "number", "example": 200 },
+          "message": { "type": "string" },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": { "type": "string" },
+                "name": { "type": "string" },
+                "email": { "type": "string" }
+              }
+            }
+          }
         }
       },
       "tasks": {
         "type": "object",
         "properties": {
-          "id": { "type": "string" },
-          "name": { "type": "string" },
-          "description": { "type": "string" },
-          "createdAt": { "type": "Date" },
-          "userId": { "type": "string" }
+          "ok": { "type": "boolean" },
+          "code": { "type": "number", "example": 200 },
+          "message": {
+            "type": "string",
+            "example": "Tarefas listadas com sucesso"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": { "type": "string" },
+                "name": { "type": "string" },
+                "description": { "type": "string" },
+                "createdAt": { "type": "string", "format": "date-time" },
+                "userId": { "type": "string" }
+              }
+            }
+          }
+        }
+      },
+      "task-create": {
+        "type": "object",
+        "properties": {
+          "ok": { "type": "boolean" },
+          "code": { "type": "number", "example": 201 },
+          "message": {
+            "type": "string",
+            "example": "Tarefa criada com sucesso"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "name": { "type": "string" },
+              "description": { "type": "string" },
+              "createdAt": { "type": "string", "format": "date-time" },
+              "userId": { "type": "string" }
+            }
+          }
         }
       },
       "task-update": {
         "type": "object",
         "properties": {
-          "id": { "type": "string" },
-          "name": { "type": "string" },
-          "description": { "type": "string" },
-          "createdAt": { "type": "Date" },
-          "userId": { "type": "string" }
+          "ok": { "type": "boolean" },
+          "code": { "type": "number", "example": 200 },
+          "message": {
+            "type": "string",
+            "example": "Tarefa editada com sucesso"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "name": { "type": "string" },
+              "description": { "type": "string" },
+              "createdAt": { "type": "string", "format": "date-time" },
+              "userId": { "type": "string" }
+            }
+          }
+        }
+      },
+      "task-delete": {
+        "type": "object",
+        "properties": {
+          "ok": { "type": "boolean" },
+          "code": { "type": "number", "example": 200 },
+          "message": {
+            "type": "string",
+            "example": "Tarefa excluida com sucesso"
+          }
         }
       }
     },
