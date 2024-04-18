@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:8080"
+      "url": "https://api-facilitasystem.onrender.com/docs"
     }
   ],
   "tags": [
