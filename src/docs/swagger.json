@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "https://api-facilitasystem.onrender.com/docs"
+      "url": "https://api-facilitasystem.onrender.com"
     }
   ],
   "tags": [
