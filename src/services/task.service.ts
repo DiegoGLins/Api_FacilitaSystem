@@ -1,6 +1,7 @@
+import { takeCoverage } from "v8";
 import prisma from "../database/prisma.database";
 import { ResponseDto } from "../dto/response.dto";
-import { TaskCreateDto, TaskUpdateDto } from "../dto/task.dto";
+import { TaskCreateDto, TaskDto, TaskUpdateDto } from "../dto/task.dto";
 
 class TaskService {
     public async create(data: TaskCreateDto): Promise<ResponseDto> {
@@ -38,11 +39,19 @@ class TaskService {
             where: { userId },
         })
 
+        const taskModel: TaskDto[] = tasks.map(task => ({
+            id: task.id,
+            name: task.name,
+            description: task.description,
+            createdAt: task.createdAt.toString(),
+            userId: task.userId
+        }))
+
         return {
             ok: true,
             code: 200,
             message: "Tarefas listadas com sucesso",
-            data: tasks
+            data: taskModel
         }
     }
 
