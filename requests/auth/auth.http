@@ -1,16 +1,8 @@
 POST http://localhost:8080/auth HTTP/1.1
 content-type: application/json
 
-# {
-#     "email": "pedrinho@gmail.com",
-#     "password": "12345"
-# }
-//1e1b2b2a-a7cd-49b3-b434-b5c0f894bc33
-//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjFlMWIyYjJhLWE3Y2QtNDliMy1iNDM0LWI1YzBmODk0YmMzMyIsIm5hbWUiOiJwZWRybyBzb3V6YSIsImVtYWlsIjoicGVkcmluaG9AZ21haWwuY29tIiwiaWF0IjoxNzEzMTk0OTQyfQ.G9k2q8uOn3GRILPc-8ZO1b5LqLfua9-hD8uB2oMZtJ8
-
 {
-    "email":"amanda@gmail.com",
+    "email":"rafael@gmail.com",
     "password":"12345"
 }
-//:id: 1fd142e7-848d-4597-a171-593d6dde59b7
-//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjBlZWUzMmNkLTdiOGUtNDQ5Ny1hOTc3LWRjYWNhOTI4ZDkxOCIsIm5hbWUiOiJhbWFuZGEiLCJlbWFpbCI6ImFtYW5kYUBnbWFpbC5jb20iLCJpYXQiOjE3MTMzMTI1OTV9.-XggC6TkX-yHP96z3vv8Sfwq48iMDM1kDqLM6CNMw58
+//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhlNmJmYTRiLWRmYTktNGNkZC05OTliLWY0ODkzNDBlYjQwMSIsIm5hbWUiOiJyYWZhZWwiLCJlbWFpbCI6InJhZmFlbEBnbWFpbC5jb20iLCJpYXQiOjE3MTM0NTI0OTR9.u0AuVamm1LswkUqLiOjWlhg9CZLAs5XZTfGsdvTqj6Y

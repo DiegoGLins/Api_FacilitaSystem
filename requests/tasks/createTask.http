@@ -1,8 +1,8 @@
 POST http://localhost:8080/tasks HTTP/1.1
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjFmZDE0MmU3LTg0OGQtNDU5Ny1hMTcxLTU5M2Q2ZGRlNTliNyIsIm5hbWUiOiJBbWFuZGEgUGVyZWlyYSIsImVtYWlsIjoiYW1hbmRhQGdtYWlsLmNvbSIsImlhdCI6MTcxMzI3Mzk1Nn0.Ed-O2KdS0KY4uN0h9DKA5qsaoIyFcFkH-MhL8IPNk0I
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhlNmJmYTRiLWRmYTktNGNkZC05OTliLWY0ODkzNDBlYjQwMSIsIm5hbWUiOiJyYWZhZWwiLCJlbWFpbCI6InJhZmFlbEBnbWFpbC5jb20iLCJpYXQiOjE3MTM0NTI0OTR9.u0AuVamm1LswkUqLiOjWlhg9CZLAs5XZTfGsdvTqj6Y
 
 {
-    "name":"sabado de sol",
-    "description":"beber cerveja"
+    "name":"jogar bola",
+    "description":"no domingo"
 }
