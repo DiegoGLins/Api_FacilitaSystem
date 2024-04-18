@@ -12,6 +12,7 @@ class TaskService {
                 userId: data.userId
             }
         })
+
         return {
             ok: true,
             code: 201,
@@ -43,7 +44,7 @@ class TaskService {
             id: task.id,
             name: task.name,
             description: task.description,
-            createdAt: task.createdAt.toString(),
+            createdAt: task.createdAt,
             userId: task.userId
         }))
 
